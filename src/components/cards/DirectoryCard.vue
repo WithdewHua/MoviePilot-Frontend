@@ -38,7 +38,7 @@ const typeItems = [
 
 // 自动整理方式下拉字典
 const transferSourceItems = [
-  { title: '不整理', value: '' },
+  { title: '不整理', value: 'unorganize' },
   { title: '下载器监控', value: 'downloader' },
   { title: '目录监控', value: 'monitor' },
   { title: '手动整理', value: 'manual' },
@@ -252,7 +252,7 @@ watch(
             />
           </VCol>
         </VRow>
-        <VRow v-if="$props.directory.monitor_type">
+        <VRow v-if="$props.directory.monitor_type != 'unorganize'">
           <VCol cols="12" v-if="$props.directory.monitor_type == 'monitor'">
             <VSelect
               v-model="props.directory.monitor_mode"
