@@ -19,6 +19,7 @@ const SystemSettings = ref<any>({
     DOWNLOAD_SUBTITLE: false,
     AUTO_DOWNLOAD_USER: null,
     TORRENT_TAG: 'MOVIEPILOT',
+    MONITOR_TYPE: 'downloader',
   },
 })
 
@@ -37,6 +38,14 @@ const mediaSourcesDict = [
     value: 'bangumi',
   },
 ]
+
+// 整理方式选择框数据
+const monitorTypeOptions = ref([
+  { title: '不整理', value: 'unorganize' },
+  { title: '下载器监控', value: 'downloader' },
+  { title: '目录监控', value: 'monitor' },
+  { title: '手动整理', value: 'manual' },
+])
 
 // 当前选中的媒体信息数据源
 const selectedMediaSource = ref([])
@@ -227,6 +236,15 @@ onMounted(() => {
                 label="远程搜索自动下载用户名单"
                 placeholder="用户ID1,用户ID2"
                 hint="使用Telegram、微信等搜索时是否自动下载，使用逗号分割，设置为 all 代表所有用户自动择优下载"
+                persistent-hint
+              />
+            </VCol>               
+            <VCol cols="12" md="12">
+              <VSelect
+                v-model="SystemSettings.Basic.MONITOR_TYPE"
+                label="整理方式"
+                :items="monitorTypeOptions"
+                hint="整理方式，将影响存储目录的匹配"
                 persistent-hint
               />
             </VCol>

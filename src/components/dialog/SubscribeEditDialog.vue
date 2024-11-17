@@ -52,6 +52,7 @@ const subscribeForm = ref<Subscribe>({
   current_priority: 0,
   date: '',
   show_edit_dialog: false,
+  monitor_type: 'downloader',
 })
 
 // 提示框
@@ -306,6 +307,15 @@ const effectOptions = ref([
   },
 ])
 
+// 整理方式选择框数据
+const monitorTypeOptions = ref([
+  { title: '默认', value: '' },
+  { title: '不整理', value: 'unorganize' },
+  { title: '下载器监控', value: 'downloader' },
+  { title: '目录监控', value: 'monitor' },
+  { title: '手动整理', value: 'manual' },
+])
+
 onMounted(() => {
   queryFilterRuleGroups()
   loadDownloadDirectories()
@@ -412,7 +422,7 @@ onMounted(() => {
                   </VCol>
                 </VRow>
                 <VRow>
-                  <VCol cols="12" md="6">
+                  <VCol cols="12" md="4">
                     <VSelect
                       v-model="subscribeForm.downloader"
                       :items="downloaderOptions"
@@ -421,12 +431,21 @@ onMounted(() => {
                       persistent-hint
                     />
                   </VCol>
-                  <VCol cols="12" md="6">
+                  <VCol cols="12" md="4">
                     <VCombobox
                       v-model="subscribeForm.save_path"
                       :items="targetDirectories"
                       label="保存路径"
                       hint="指定该订阅的下载保存路径，留空自动使用设定的下载目录"
+                      persistent-hint
+                    />
+                  </VCol>
+                  <VCol cols="12" md="4">
+                    <VSelect
+                      v-model="subscribeForm.monitor_type"
+                      label="整理方式"
+                      :items="monitorTypeOptions"
+                      hint="指定该订阅的整理方式，将根据此选项匹配存储目录"
                       persistent-hint
                     />
                   </VCol>

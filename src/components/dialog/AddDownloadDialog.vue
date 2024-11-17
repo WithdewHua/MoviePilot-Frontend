@@ -22,6 +22,9 @@ const selectedDownloader = ref<string | null>(null)
 // 选择的保存目录
 const selectedDirectory = ref<string | null>(null)
 
+// 选择的整理方式
+const selectedMonitorType = ref<string | null>(null)
+
 // 定义成功和失败事件
 const emit = defineEmits(['done', 'error', 'close'])
 
@@ -74,6 +77,15 @@ const downloaderOptions = computed(() => {
   }))
 })
 
+// 整理方式选择框数据
+const monitorTypeOptions = ref([
+  { title: '默认', value: '' },
+  { title: '不整理', value: 'unorganize' },
+  { title: '下载器监控', value: 'downloader' },
+  { title: '目录监控', value: 'monitor' },
+  { title: '手动整理', value: 'manual' },
+])
+
 // 添加下载
 async function addDownload() {
   startNProgress()
@@ -85,6 +97,7 @@ async function addDownload() {
       torrent_in: props.torrent,
       downloader: selectedDownloader.value,
       save_path: selectedDirectory.value,
+      monitor_type: selectedMonitorType.value,
     }
 
     if (props.media) {
@@ -170,12 +183,21 @@ onMounted(() => {
               placeholder="留空默认"
             />
           </VCol>
-          <VCol cols="12" md="8">
+          <VCol cols="12" md="4">
             <VCombobox
               v-model="selectedDirectory"
               :items="targetDirectories"
               label="指定保存目录"
               placeholder="留空自动匹配"
+              variant="underlined"
+            />
+          </VCol>
+          <VCol cols="12" md="4">
+            <VSelect
+              v-model="selectedMonitorType"
+              label="整理方式"
+              :items="monitorTypeOptions"
+              placeholder="留空默认"
               variant="underlined"
             />
           </VCol>
