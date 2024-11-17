@@ -52,7 +52,7 @@ const subscribeForm = ref<Subscribe>({
   current_priority: 0,
   date: '',
   show_edit_dialog: false,
-  monitor_type: 'downloader',
+  monitor_type: '',
 })
 
 // 提示框

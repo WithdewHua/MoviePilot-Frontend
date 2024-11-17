@@ -74,6 +74,8 @@ export interface Subscribe {
   filter_groups?: string[]
   // 下载器
   downloader?: string
+  // 整理类型
+  monitor_type?: string
 }
 
 // 订阅分享
